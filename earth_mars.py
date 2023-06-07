@@ -19,9 +19,10 @@ class DeltaVs:
                 math.sqrt((2*self.a_transf/self.R2) - 1))
         impulse1 = vpi - v1
         impulse2 = v2 - vap
-        return impulse1, impulse2, 0.5*self.p_transf/86400
+        return impulse1, impulse2
     
-
-    
+    def transfer_time(self):
+        return 0.5*self.p_transf/86400
 delta_vs = DeltaVs()
 print(delta_vs.transfer_velocity())
+print(delta_vs.transfer_time())
