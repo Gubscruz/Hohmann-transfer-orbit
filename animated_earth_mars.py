@@ -10,11 +10,15 @@ mu = G * M  # gravitational parameter
 r1 = 6371e3  # radius of lower circular orbit (Earth's orbit)
 r2 = 42164e3  # radius of higher circular orbit (Mars' orbit)
 
-# Time array
-T = np.linspace(0, 2*np.pi, 300)  # angle for complete orbit
+# Calculate semi-major axis of the transfer orbit
+a = (r1 + r2) / 2
 
-# Position functions
-def position(r, T):
+# Time array for one full orbit in the transfer ellipse
+T = np.linspace(0, 2*np.pi, 300)
+
+# Position function for an elliptical orbit with semi-major axis a and eccentricity e
+def position(a, e, T):
+    r = a * (1 - e**2) / (1 + e * np.cos(T))
     return r * np.cos(T), r * np.sin(T)
 
 # Create plot
@@ -31,7 +35,7 @@ ax.add_artist(mars_orbit)
 
 # Add planets to plot
 earth = Circle((r1, 0), r1/10, color='b')
-mars = Circle((r2, 0), r2/10, color='r')
+mars = Circle((-r2, 0), r2/10, color='r')
 ax.add_artist(earth)
 ax.add_artist(mars)
 
@@ -43,12 +47,12 @@ def init():
     spacecraft.set_data([], [])
     return spacecraft,
 
+# Eccentricity of the transfer orbit
+e = 1 - 2 / ((r2 / r1) + 1)
+
 # Update function
 def update(i):
-    if i < len(T) / 2:
-        x, y = position(r1, T[i])
-    else:
-        x, y = position(r2, T[i])
+    x, y = position(a, e, T[i])
     spacecraft.set_data(x, y)
     return spacecraft,
 
