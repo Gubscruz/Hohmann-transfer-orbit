@@ -34,8 +34,10 @@ ax.add_artist(earth_orbit)
 ax.add_artist(mars_orbit)
 
 # Add planets to plot
-earth = Circle((r1, 0), r1/10, color='b')
-mars = Circle((-r2, 0), r2/10, color='r')
+earth_radius = r1/10
+mars_radius = r2/10
+earth = Circle((-r1, 0), earth_radius, color='b')
+mars = Circle((r2, 0), mars_radius, color='r')
 ax.add_artist(earth)
 ax.add_artist(mars)
 
@@ -45,7 +47,7 @@ spacecraft, = ax.plot([], [], 'go')
 # Initialize function
 def init():
     spacecraft.set_data([], [])
-    return spacecraft,
+    return earth, mars, spacecraft,
 
 # Eccentricity of the transfer orbit
 e = 1 - 2 / ((r2 / r1) + 1)
@@ -54,7 +56,11 @@ e = 1 - 2 / ((r2 / r1) + 1)
 def update(i):
     x, y = position(a, e, T[i])
     spacecraft.set_data(x, y)
-    return spacecraft,
+    
+    earth.center = r1 * np.cos(T[i]), r1 * np.sin(T[i])
+    mars.center = r2 * np.cos(T[i]), r2 * np.sin(T[i])
+    
+    return earth, mars, spacecraft,
 
 # Create animation
 ani = FuncAnimation(fig, update, frames=range(len(T)), init_func=init, blit=True)
