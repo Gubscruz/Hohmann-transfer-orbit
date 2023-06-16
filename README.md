@@ -1,13 +1,6 @@
-# Hohmann-transfer-orbit
+#Earth to Mers orbit trasnfer animation
 
-This is a python simulation of a Hohmann Transfer Orbit
-
-A Hohmann transfer orbit is the most efficient two-impulse (burns) elliptical transfer 
-between two co-planar circular orbits. It consists of an elliptical orbit with a perigee
-at the inner orbit and apogee at the outer orbit.
-The efficiency is determined by the ammount of delta-v required to make the
-manuever, thus, the more efficient, less fuel is required to perform it.
-
-The transfer requires a specific alignment between the 
-celestial bodies in question, so it is necesary to wait
-for the right time (launch window) to execute it.
+The animation is, at least for now, a little unprecise as it doesn't account for any real world factors relevant to a Hohmann 
+orbit transfer, that's why the satellite is doing the full orbital manuever ellipse repeatedly, instead of doing only the first half.
+The goal of the project was to get insights for other (more complex and accurate) project I'm working on related to orbit transfers.
+Feel free to contribute to my code.
