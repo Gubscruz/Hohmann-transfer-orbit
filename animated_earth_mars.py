@@ -21,19 +21,18 @@ def position(a, e, T):
     r = a * (1 - e**2) / (1 + e * np.cos(T))
     return r * np.cos(T), r * np.sin(T)
 
-# Create plot
 fig, ax = plt.subplots()
 ax.set_xlim(-r2 - r1, r2 + r1)
 ax.set_ylim(-r2 - r1, r2 + r1)
 ax.set_aspect('equal')
 
-# Add orbits to plot
+# Add orbits
 earth_orbit = Circle((0, 0), r1, fill=False, color='b', linestyle='--')
 mars_orbit = Circle((0, 0), r2, fill=False, color='r', linestyle='--')
 ax.add_artist(earth_orbit)
 ax.add_artist(mars_orbit)
 
-# Add planets to plot
+# Add planets
 earth_radius = r1/5
 mars_radius = r2/17
 earth = Circle((-r1, 0), earth_radius, color='b')
@@ -41,13 +40,11 @@ mars = Circle((r2, 0), mars_radius, color='r')
 ax.add_artist(earth)
 ax.add_artist(mars)
 
-# Plot spacecraft
 spacecraft, = ax.plot([], [], 'go')
 
-# Create list to store spacecraft path
+# Spacecraft path
 spacecraft_path, = ax.plot([], [], 'g', linestyle='--')
 
-# Initialize function
 def init():
     spacecraft.set_data([], [])
     spacecraft_path.set_data([], [])
@@ -56,11 +53,9 @@ def init():
 # Eccentricity of the transfer orbit
 e = 1 - 2 / ((r2 / r1) + 1)
 
-# Lists to store spacecraft path coordinates
 xdata = []
 ydata = []
 
-# Update function
 def update(i):
     x, y = position(a, e, T[i])
     spacecraft.set_data(x, y)
